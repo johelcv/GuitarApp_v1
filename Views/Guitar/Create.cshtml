@@ -1,0 +1,120 @@
+﻿@model Guitar.Entities.Guitars
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Create</h2>
+
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Guitar</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.Name,
+                                                new SelectList(ViewBag.Projects, "Id", "Name"),
+                                                "-- Select a project --", htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class = "control-label col-md-2">Fecha Inicio</label> 
+            <div class="col-md-10">
+                <input type="date" name="FInicio" id="FInicio" class = "form-control" value="@ViewBag.FInicio"/>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Fecha Pintura</label>
+            <div class="col-md-10">
+                <input type="date" name="FPintura" id="FPintura" class = "form-control" value="@ViewBag.FPintura"/>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Fecha Prueba</label>
+            <div class="col-md-10">
+                <input type="date" name="FPrueba" id="FPrueba" class = "form-control" value="@ViewBag.FPrueba"/>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Fecha Fin</label>
+            <div class="col-md-10">
+                <input type="date" name="FFin" id="FFin" class = "form-control" value="@ViewBag.FFin"/>
+            </div>
+        </div>
+
+        @*<div class="form-group">
+            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+
+        @*<div class="form-group">
+            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+
+        @*<div class="form-group">
+            @Html.LabelFor(model => model.GuitarBodyId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.GuitarBodyId, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.GuitarBodyId, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+
+        @*<div class="form-group">
+            @Html.LabelFor(model => model.GuitarNeckId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.GuitarNeckId, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.GuitarNeckId, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+
+        @*<div class="form-group">
+            @Html.LabelFor(model => model.GuitarBridgeId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.GuitarBridgeId, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.GuitarBridgeId, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+
+        @*<div class="form-group">
+            @Html.LabelFor(model => model.GuitarPickupId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.GuitarPickupId, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.GuitarPickupId, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

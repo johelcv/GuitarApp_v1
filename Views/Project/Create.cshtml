@@ -1,0 +1,123 @@
+﻿@model Guitar.Entities.Project
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Create</h2>
+
+
+@using (Html.BeginForm(null,null,
+    FormMethod.Post, new
+    {
+        enctype = "multipart/form-data"
+    }))
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Project</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.BodyID, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @*@Html.EditorFor(model => model.GuitarBodyID, new { htmlAttributes = new { @class = "form-control" } })*@
+                @Html.DropDownListFor(model => model.BodyID, 
+                                                new SelectList(ViewBag.GuitarBody, "Id", "Name"),
+                                                "-- Select a body --", htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.BodyID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.NeckID, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @*@Html.EditorFor(model => model.GuitarNeckID, new { htmlAttributes = new { @class = "form-control" } })*@
+                @Html.DropDownListFor(model => model.NeckID,
+                                                new SelectList(ViewBag.GuitarNeck, "Id", "Name"),
+                                                "-- Select a neck --", htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.NeckID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.BridgeID, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @*@Html.EditorFor(model => model.GuitarBridgeID, new { htmlAttributes = new { @class = "form-control" } })*@
+                @Html.DropDownListFor(model => model.BridgeID,
+                                                new SelectList(ViewBag.GuitarBridge, "Id", "Name"),
+                                                "-- Select a bridge --", htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.BridgeID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PickupID, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @*@Html.EditorFor(model => model.GuitarPickupID, new { htmlAttributes = new { @class = "form-control" } })*@
+                @Html.DropDownListFor(model => model.PickupID,
+                                                new SelectList(ViewBag.GuitarPickup, "Id", "Name"),
+                                                "-- Select a pickup --", htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.PickupID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2" for="imgPreview">Diseño</label>
+            <div class="col-md-offset-2 col-md-10">
+                <div>
+                    <img id="imgPreview" name="imgPreview" class="img-thumbnail box-shadow--8dp" width="640" height="260" />
+                </div>
+                <br />
+                <input type="file" id="files" name="files" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+            $(function () {
+                $("#files").change(function () {
+                    if (this.files && this.files[0]) {
+                        var reader = new FileReader();
+                        reader.onload = function (e) {
+                            $("#imgPreview").attr('src', e.target.result);
+                        }
+                        reader.readAsDataURL(this.files[0]);
+                    } else {
+                        $("#imgPreview").attr('src', 'placeholder.png');
+                    }
+                });
+            });
+</script>
+}

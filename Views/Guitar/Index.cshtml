@@ -1,0 +1,105 @@
+﻿@model IEnumerable<Guitar.Entities.Guitars>
+
+@{
+    ViewBag.Title = "Guitars";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section styles{
+    @Styles.Render("~/Content/style.css")
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+<h2>Guitarras</h2>
+<br />
+<span id="rsperror" style="color:red"></span>
+<br />
+<table id="list" class="scroll"></table>
+<div id="pager" class="scroll" style="text-align:center;"></div>
+
+@section scripts{
+<script type="text/javascript">
+        $(function () {
+
+            var updateOptions = {
+                url: '/Guitar/UpdateGuitar/',
+                closeAfterAdd: true,
+                closeAfterEdit: true,
+                modal: true,
+                afterSubmit: function (response, postdata) {
+                    if (response.responseText != "") {
+                        return [false, response.responseText, 0];
+                    } else {
+                        return [true, "Ok"];
+                    }
+                },
+                width: "400"
+            };
+
+            //$.jgrid.nav.addtext = "Agregar";
+            //$.jgrid.nav.edittext = "Editar";
+            //$.jgrid.nav.deltext = "Eliminar";
+            //$.jgrid.edit.addCaption = "Agregar Guitarra";
+            //$.jgrid.edit.editCaption = "Editar Guitarra";
+            //$.jgrid.del.caption = "Eliminar Guitarra";
+            //$.jgrid.del.msg = "¿Esta seguro que desea eliminar esta guitarra?";
+            //$.jgrid.edit.msg.required = " Es un campo obligatorio.";
+
+            $("#list").jqGrid({
+                width: 800,
+                url: '/Guitar/GetGuitars/',
+                datatype: 'json',
+                mtype: 'GET',
+                colNames: ['Id', 'Name', 'StartDate','PaintDate','TestDate','FinishDate'],
+                colModel: [
+                    {
+                        name: 'Id', index: 'Id', width: 50, align: 'left', key: true,
+                        editable: false, editrules: { edithidden: false }, hidedlg: true, hidden: true
+                    },
+                    {
+                        name: 'Name', index: 'Name', width: 100, align: 'left',
+                        editable: false, edittype: 'text', editrules: { required: true }, formoptions: { elmsuffix: ' *' }
+                    },
+                    {
+                        name: 'StartDate', index: 'StartDate', width: 100, align: 'left',
+                        editable: true, edittype: 'text', 
+                        editrules: { required: true }, formoptions: { elmsuffix: ' *' }
+                    },
+                    {
+                        name: 'PaintDate', index: 'PaintDate', width: 100, align: 'left',
+                        editable: true, edittype: 'text',
+                        editrules: { required: true }, formoptions: { elmsuffix: ' *' }
+                    },
+                    {
+                        name: 'TestDate', index: 'TestDate', width: 100, align: 'left',
+                        editable: true, edittype: 'text',
+                        editrules: { required: true }, formoptions: { elmsuffix: ' *' }
+                    },
+                    {
+                        name: 'FinishDate', index: 'FinishDate', width: 100, align: 'left',
+                        editable: true, edittype: 'text',
+                        editrules: { required: true }, formoptions: { elmsuffix: ' *' }
+                    }],
+                pager: jQuery('#pager'),
+                rowNum: 5,
+                rowList: [5, 10, 20, 50],
+                sortname: 'Id',
+                sortorder: 'asc',
+                viewrecords: true,
+                caption: 'Listado de Guitarras'
+            }).navGrid('#pager',
+                {
+                    edit: true, add: false, del: false, search: false, refresh: true
+                },
+                updateOptions,
+                updateOptions,
+                updateOptions
+            );
+        });
+</script>
+}
